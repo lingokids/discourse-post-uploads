@@ -14,8 +14,11 @@ after_initialize do
       &.uploads
       &.map do |upload|
         upload
-          .slice(:url, :extension)
-          .merge(short_url: upload.short_url)
+          .slice("extension")
+          .merge({
+            url: Discourse.store.external? ? Discourse.store.cdn_url(upload.url) : "#{Discourse.base_url}#{upload.url}",
+            short_url: upload.short_url
+          })
       end
   end
 end
