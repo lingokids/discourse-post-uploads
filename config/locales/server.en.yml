@@ -1,3 +1,3 @@
 en:
   site_settings:
-    discourse_post_uploads_enabled: "Enable Discourse Post Uploads plugin"
+    discourse_post_uploads_enabled: "Add `uploads` data to Post Serializer"
