@@ -16,8 +16,14 @@ after_initialize do
         upload
           .slice("extension")
           .merge({
-            url: Discourse.store.external? ? Discourse.store.cdn_url(upload.url) : "#{Discourse.base_url}#{upload.url}",
-            short_url: upload.short_url
+            short_url: upload.short_url,
+            url: begin
+              if Discourse.store.external?
+                upload.url.start_with?("//") ? Discourse.store.cdn_url(upload.url) : "#{Discourse.base_url}#{upload.url}"
+              else
+                "#{Discourse.base_url}#{upload.url}"
+              end
+            end
           })
       end
   end
